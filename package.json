@@ -1,0 +1,14 @@
+{
+  "name": "telebot",
+  "version": "1.0.0",
+  "description": "for telegram bot",
+  "main": "index.js",
+  "author": "KIT",
+  "license": "MIT",
+  "dependencies": {
+    "telebot": "^1.2.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
