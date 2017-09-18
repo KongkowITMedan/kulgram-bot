@@ -14,6 +14,7 @@
     "nodemon": "^1.12.1"
   },
   "scripts": {
-    "start": "node ./index.js"
+    "start": "node ./index.js",
+    "setup": "cp .env.example .env && echo '[]' > log.json"
   }
 }
