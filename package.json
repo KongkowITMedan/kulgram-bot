@@ -1,14 +1,19 @@
 {
-  "name": "telebot",
+  "name": "kulgram-bot",
   "version": "1.0.0",
-  "description": "for telegram bot",
+  "description": "bot for helping in kulgram",
   "main": "index.js",
   "author": "KIT",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^4.0.0",
+    "lodash": "^4.17.4",
     "telebot": "^1.2.3"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
+  },
+  "scripts": {
+    "start": "node ./index.js"
   }
 }
