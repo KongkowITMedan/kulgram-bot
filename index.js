@@ -37,7 +37,7 @@ bot.on(['/hello'], msg => msg.reply.text('Hello World!'))
 bot.on(['/mute'], msg => {
   const isAdmin = checkAdmin(msg.from.username)
   if(isAdmin){
-    this.isMute = true
+    isMute = true
     bot.sendMessage(process.env.CHAT_ID, `Mode Belajar`)
   }
 })
@@ -45,7 +45,7 @@ bot.on(['/mute'], msg => {
 bot.on(['/unmute'], msg => {
   const isAdmin = checkAdmin(msg.from.username)
   if(isAdmin){
-    this.isMute = false
+    isMute = false
     bot.sendMessage(process.env.CHAT_ID, `Mode QA`)
   }
 })
@@ -57,7 +57,7 @@ bot.on(['audio', 'sticker'], msg => bot.deleteMessage(msg.chat.id, msg.message_i
 bot.on(['text', 'photo'], msg => {
   if (msg.chat.id.toString() === process.env.CHAT_ID) {
     const isAdmin = checkAdmin(msg.from.username)
-    if(this.isMute && !isAdmin) {
+    if(isMute && !isAdmin) {
       bot.deleteMessage(msg.chat.id, msg.message_id)
     }else{
       currentLog.push(msg)
