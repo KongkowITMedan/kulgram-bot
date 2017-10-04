@@ -35,13 +35,19 @@ function writeLog () {
 bot.on(['/hello'], msg => msg.reply.text('Hello World!'))
 
 bot.on(['/mute'], msg => {
-  this.isMute = true
-  bot.sendMessage(process.env.CHAT_ID, `Mode Belajar`)
+  const isAdmin = checkAdmin(msg.from.username)
+  if(isAdmin){
+    this.isMute = true
+    bot.sendMessage(process.env.CHAT_ID, `Mode Belajar`)
+  }
 })
 
 bot.on(['/unmute'], msg => {
-  this.isMute = false
-  bot.sendMessage(process.env.CHAT_ID, `Mode QA`)
+  const isAdmin = checkAdmin(msg.from.username)
+  if(isAdmin){
+    this.isMute = false
+    bot.sendMessage(process.env.CHAT_ID, `Mode QA`)
+  }
 })
 
 // Delete audio & sticker post
