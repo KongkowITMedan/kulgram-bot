@@ -35,6 +35,7 @@ function writeLog () {
 bot.on(['/hello'], msg => msg.reply.text('Hello World!'))
 
 bot.on(['/mute'], msg => {
+  if(isMute) return;
   const isAdmin = checkAdmin(msg.from.username)
   if(isAdmin){
     isMute = true
@@ -43,6 +44,7 @@ bot.on(['/mute'], msg => {
 })
 
 bot.on(['/unmute'], msg => {
+  if(!isMute) return;
   const isAdmin = checkAdmin(msg.from.username)
   if(isAdmin){
     isMute = false
