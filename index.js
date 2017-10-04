@@ -11,6 +11,7 @@ const LOG_DIR = './log.json'
 const ask = []
 const currentLog = _.clone(log)
 let admin = []
+let isMute = false
 
 bot.getChatAdministrators(process.env.CHAT_ID)
   .then(response => response.result.forEach(people => admin.push(people.user)))
@@ -33,20 +34,35 @@ function writeLog () {
 // Hello world!
 bot.on(['/hello'], msg => msg.reply.text('Hello World!'))
 
+bot.on(['/mute'], msg => {
+  this.isMute = true
+  bot.sendMessage(process.env.CHAT_ID, `Mode Belajar`)
+})
+
+bot.on(['/unmute'], msg => {
+  this.isMute = false
+  bot.sendMessage(process.env.CHAT_ID, `Mode QA`)
+})
+
 // Delete audio & sticker post
 bot.on(['audio', 'sticker'], msg => bot.deleteMessage(msg.chat.id, msg.message_id))
 
 // Save photo & text post to .json log
 bot.on(['text', 'photo'], msg => {
-  if (msg.chat.id === process.env.CHAT_ID) {
-    currentLog.push(msg)
-    writeLog()
+  if (msg.chat.id.toString() === process.env.CHAT_ID) {
+    const isAdmin = checkAdmin(msg.from.username)
+    if(this.isMute && !isAdmin) {
+      bot.deleteMessage(msg.chat.id, msg.message_id)
+    }else{
+      currentLog.push(msg)
+      writeLog()
+    }
   }
 })
 
 // Replace log to edited text
 bot.on(['edit'], msg => {
-  if (msg.chat.id === process.env.CHAT_ID) {
+  if (msg.chat.id.toString() === process.env.CHAT_ID) {
     const idx = _.findIndex(currentLog, { message_id: msg.message_id })
     _.update(currentLog, idx, () => msg)
     writeLog()
