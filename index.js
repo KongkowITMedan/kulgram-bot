@@ -1,12 +1,17 @@
 require('dotenv').config()
 
-const _ = require('lodash');
 const Telebot = require('telebot')
 const fs = require('fs')
-const log = require('./log.json')
+const _ = require('lodash')
+
+// Check for existing of log file. Create new log.json file if isn't exist
+const LOG_DIR = './log.json'
+if (!fs.existsSync(LOG_DIR)) {
+  fs.writeFileSync(LOG_DIR, '[]')
+}
+const log = require(LOG_DIR)
 
 const bot = new Telebot(process.env.API_KEY)
-const LOG_DIR = './log.json'
 
 const ask = []
 const currentLog = _.clone(log)
@@ -34,11 +39,19 @@ bot.on(['/hello'], msg => msg.reply.text('Hello World!'))
 bot.on('/start', msg => {
   chatId = msg.chat.id
   bot.getChatAdministrators(chatId)
-    .then(response => response.result.forEach(people => admin.push(people.user)))
-    .catch(err => console.log(err))
+    .then((response) => {
+      response.result.forEach(people => admin.push(people.user))
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   bot.getChat(chatId)
-    .then(response => console.log(response.result))
-    .catch(err => console.log(err))
+    .then((response) => {
+      console.log(response.result)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 })
 
 // Delete audio & sticker post

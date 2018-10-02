@@ -6,12 +6,12 @@
   "author": "KIT",
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^4.0.0",
-    "lodash": "^4.17.4",
-    "telebot": "^1.2.3"
+    "dotenv": "^6.0.0",
+    "lodash": "^4.17.11",
+    "telebot": "^1.2.6"
   },
   "devDependencies": {
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.18.4"
   },
   "scripts": {
     "start": "node ./index.js",
